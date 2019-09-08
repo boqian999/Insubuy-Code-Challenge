@@ -1,0 +1,131 @@
+@import "../assets/scss/variables";
+@import "../assets/scss/mixins";
+
+.content-holder {
+    margin: 10rem;
+    background-color: $bg-color;
+}
+
+.main-content {
+    width: 800px;
+    margin: 0 auto;
+    border: 1.5px solid $color-grey-dark;
+}
+
+.form {
+
+    &--header {
+        display: flex;
+        align-items: center;
+        padding: 2rem;
+        background-color: $bg-color-dark;
+
+        &__img {
+            display: inline-block;
+            height: 5.5rem;
+            padding-right: 1rem;
+        }
+
+        &__title {
+            display: inline-block;
+            padding-left: 1rem;
+            line-height: 20px;
+            border-left: 0.5px solid $color-secondary;
+            color: $color-secondary
+        }
+    }
+
+    &--body {
+        padding: 0 2rem;
+
+        form {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        &--inputContent {
+            width: 48%;
+            padding: 1rem 0;
+
+            &__subtitle {
+                display: block;
+                font-size: 1.6rem;
+                font-weight: 600;
+            }
+
+            &__input {
+                display: block;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                width: 100%;
+                height: 4.2rem;
+                padding: 1rem;
+                border: 1px solid $color-grey-light;
+                border-radius: 0;
+                outline: none;
+                font-size: 1.6rem;
+                background: transparent;
+
+                &--date {
+                    display: inline-block;
+                    width: 50%;
+                    float: left;
+                }
+
+                @include clearfix;
+
+                &::placeholder, &:invalid {
+                    color: $color-grey-dark;
+                }
+
+            }
+        }
+
+        &--btn {
+            width: 100%;
+            margin: 4rem auto 1rem;
+            padding: 1rem 0;
+            border: none;
+            border-radius: 0;
+            font-size: 2rem;
+            text-transform: uppercase;
+            color: #fff;
+            background-color: #ec853c;
+            outline: none;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #ec7928;
+            }
+        }
+
+        &--errMsg {
+            width: 100%;
+            height: 1rem;
+            text-align: center;
+            font-size: 1.4rem;
+            color: #f94d07;
+        }
+
+
+        &--link {
+            display: block;
+            width: 100%;
+            color: #406a95d6;
+            margin: 1rem auto;
+            font-size: 1.8rem;
+            font-style: italic;
+            text-align: center;
+        }
+
+        &--link:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}

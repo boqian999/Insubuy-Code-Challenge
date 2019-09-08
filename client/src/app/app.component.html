@@ -1,0 +1,115 @@
+<div class="content-holder">
+	<main class="form main-content" *ngIf="step.value === 1">
+		<header class="form--header">
+			<img src="../assets/img/logo__insubuy.png" alt="logo" class="form--header__img">
+			<h1 class="form--header__title">Travel Insurance</h1>
+		</header>
+
+		<div class="form--body" >
+			<form #requestForm="ngForm" novalidate>
+				<div class="form--body--inputContent">
+					<label class="form--body--inputContent__subtitle"
+					       for="policy">
+						Policy Maximum
+					</label>
+					<select required
+					        id="policy"
+					        name="policy"
+					        #name="ngModel"
+					        class="form--body--inputContent__input cursor-pointer"
+					        (ngModelChange)="clearErrMsg()"
+					        [(ngModel)]="quoteObj.policyMax">
+						<option value="" disabled selected>Choose your policy maximum</option>
+						<option *ngFor="let policy of policies" [ngValue]="policy.value">{{policy.name}}</option>
+					</select>
+				</div>
+				<div class="form--body--inputContent">
+					<label class="form--body--inputContent__subtitle"
+					       for="age">
+						Age
+					</label>
+					<input  required
+					        type="tel"
+					        id="age"
+					        name="age"
+					        #age="ngModel"
+					        class="form--body--inputContent__input"
+					        (ngModelChange)="clearErrMsg()"
+					        placeholder="Choose your age"
+					        [(ngModel)]="quoteObj.age">
+
+				</div>
+				<div class="form--body--inputContent">
+					<label class="form--body--inputContent__subtitle"
+					       for="startDate">
+						Travel Dates (mm/dd/yyyy)
+					</label>
+					<label class="form--body--inputContent__subtitle"
+					       for="endDate"
+					       style="display: none">
+					</label>
+					<input  required
+					        id="startDate"
+					        name="startDate"
+					        #startDate="ngModel"
+					        onfocus="(this.type='date')"
+					        min="1919-01-01"
+					        class="form--body--inputContent__input form--body--inputContent__input--date"
+					        (ngModelChange)="clearErrMsg()"
+					        placeholder="Start Date"
+					        [(ngModel)]="quoteObj.startDate">
+					<input  required
+					        id="endDate"
+					        name="endDate"
+					        #endDate="ngModel"
+					        onfocus="(this.type='date')"
+					        maxlength="4"
+					        class="form--body--inputContent__input form--body--inputContent__input--date"
+					        (ngModelChange)="clearErrMsg()"
+					        placeholder="End Date"
+					        [(ngModel)]="quoteObj.endDate">
+
+				</div>
+				<div class="form--body--inputContent">
+					<label class="form--body--inputContent__subtitle"
+					       for="citizen">
+						Citizenship
+					</label>
+					<input  required
+					        type="text"
+					        id="citizen"
+					        name="citizen"
+					        #citizen="ngModel"
+					        class="form--body--inputContent__input"
+					        placeholder="Choose Your Country of Citizenship"
+					        (ngModelChange)="clearErrMsg()"
+					        [(ngModel)]="quoteObj.citizenShip">
+				</div>
+				<div class="form--body--inputContent">
+					<label class="form--body--inputContent__subtitle"
+					       for="state">
+						Mailing State
+					</label>
+					<input  required
+					        type="text"
+					        id="state"
+					        name="state"
+					        #state="ngModel"
+					        class="form--body--inputContent__input"
+					        placeholder="Choose State"
+					        (ngModelChange)="clearErrMsg()"
+					        [(ngModel)]="quoteObj.mailingState">
+				</div>
+				<div class="form--body--inputContent"></div>
+				<button class="form--body--btn" (click)="searchInsurance()">GET QUOTES</button>
+				<p class="form--body--errMsg">{{err_msg}}</p>
+				<div class="form--body--link cursor-pointer" (click)="reset()">Reset Form</div>
+			</form>
+		</div>
+	</main>
+
+	<main class="main-content" *ngIf="step.value !== 1">
+		step2
+	</main>
+</div>
+
