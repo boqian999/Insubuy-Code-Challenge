@@ -43,6 +43,8 @@ export class AppComponent implements OnInit{
     quoteSortByPriceLowToHigh = [];
     quoteSortByPriceHighToLow = [];
 
+    isModalOpen = false;
+
     ngOnInit() {
         this.currentSort = this.sortList[0];
     }
@@ -72,11 +74,11 @@ export class AppComponent implements OnInit{
                                 _this.step.value = 2;
                             }
                         }, error(err) {
-                            this.err_msg = 'Something wrong with server, please try again later';
+                            _this.err_msg = 'Something wrong with server, please try again later';
                         }
                     })
                 }, error(err) {
-                    this.err_msg = 'Something wrong with server, please try again later';
+                    _this.err_msg = 'Something wrong with server, please try again later';
                 }
             })
         }
@@ -187,7 +189,11 @@ export class AppComponent implements OnInit{
     }
 
     openCompareModal() {
+        this.isModalOpen = true;
+    }
 
+    closeModal() {
+        this.isModalOpen = false;
     }
 
     sortByName(obj) {

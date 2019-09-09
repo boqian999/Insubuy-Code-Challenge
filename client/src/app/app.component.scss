@@ -310,6 +310,10 @@
                 background-color: $color-secondary;
                 outline: none;
                 cursor: pointer;
+
+                &:disabled {
+                    opacity: 0.5;
+                }
             }
 
         }
@@ -401,6 +405,42 @@
 
 .clearBoth {
     @include clearfix;
+}
+
+.modal {
+    position: fixed;
+    width: 60rem;
+    height: 50rem;
+    padding: 1.5rem;
+    top: 50%;
+    left: 50%;
+    border: 1.5px solid $color-grey-dark;
+    transform: translate(-50%, -50%);
+    background-color: $bg-color;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+
+    &.active {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+.modal-content {
+    display: block;
+    width: 100%;
+}
+.close-button {
+    float: right;
+    width: 2rem;
+    line-height: 2rem;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    background-color: lightgray;
+}
+.close-button:hover {
+    background-color: darkgray;
 }
 
 @media only screen and (max-width: 1024px) {

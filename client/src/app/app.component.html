@@ -208,7 +208,11 @@
 		<div class="insure-list--content">
 			<div class="insure-list--content--compareBox">
 				<div>Selected Plans (Up to 4): <span *ngFor="let plan of currentSelectPlans">{{plan.name}}</span> </div>
-				<button class="insure-list--content--compareBox__btn" (click)="openCompareModal()">Compare</button>
+				<button class="insure-list--content--compareBox__btn"
+				        (click)="openCompareModal()"
+						[disabled]="currentSelectPlans.length < 2">
+					Compare
+				</button>
 			</div>
 			<div class="insure-list--content--main" [ngClass]="{'insure-list--content__grid-view': gridIsOpen}">
 				<div class="insure-list--content--box" *ngFor="let list of quoteList | quotesPipe: filter_obj">
@@ -234,5 +238,14 @@
 
 	</main>
 	<!-- end of second page -->
+</div>
+
+<div class="modal" [ngClass]="{'active': isModalOpen}" >
+	<div class="modal-content">
+		<span class="close-button" (click)="closeModal()">&times;</span>
+		<p>Hi, my name is Boqian Wang who is taking coding challenge for a FrontEnd Developer role with Insubuy. This part
+			is the only part I have not finished yet since I have to go back to work on Monday. The rest part is easy, just need to
+			write list rows. I can keep working on it after Tuesday. Please contact me at boqian9999@gmail.com if you can any questions.</p>
+	</div>
 </div>
 
