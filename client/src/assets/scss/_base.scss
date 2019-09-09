@@ -23,7 +23,34 @@ body {
 
 h1 {
     font-size: 2rem;
+    line-height: 3rem;
 }
+
+h2 {
+    font-size: 1.8rem;
+    line-height: 2.8rem;
+}
+
+h3 {
+    font-size: 1.6rem;
+}
+
+p {
+    font-size: 1.4rem;
+}
+
+@media only screen and (max-width: 767px) {
+    html {
+        font-size: 9px;
+    }
+}
+
+@media only screen and (max-width: 599px) {
+    html {
+        font-size: 8px;
+    }
+}
+
 
 
 

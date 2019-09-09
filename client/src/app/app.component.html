@@ -1,4 +1,5 @@
 <div class="content-holder">
+	<!-- start of first page -->
 	<main class="form main-content" *ngIf="step.value === 1">
 		<header class="form--header">
 			<img src="../assets/img/logo__insubuy.png" alt="logo" class="form--header__img">
@@ -107,9 +108,131 @@
 			</form>
 		</div>
 	</main>
+	<!-- end of first page -->
 
-	<main class="main-content" *ngIf="step.value !== 1">
-		step2
+	<!-- start of second page -->
+	<main class="insure-list main-content" *ngIf="step.value !== 1">
+		<header class="insure-list--header">
+			<img src="../assets/img/logo__insubuy.png" alt="logo" class="insure-list--header__img">
+			<h1 class="insure-list--header__title">Insurance Plans</h1>
+		</header>
+
+		<nav class="insure-list--nav">
+			<div class="insure-list--nav--view">
+				<button class="insure-list--nav--view__btn"
+				        [ngClass]="{'active': listIsOpen}"
+				        (click)="setView('list')">
+					<i class="fa fa-bars"></i> List
+				</button>
+				<button class="insure-list--nav--view__btn"
+				        [ngClass]="{'active': gridIsOpen}"
+				        (click)="setView('grid')">
+					<i class="fa fa-th-large"></i> Grid
+				</button>
+			</div>
+			<div class="insure-list--nav--action">
+				<div class="insure-list--nav--action--box">
+					<button class="insure-list--nav--action--box__btn filter-btn"
+					        (click)="triggerDropdown('filter')"
+					        [ngClass]="{'active': filterIsOpen}">
+						<i class="fa fa-sliders" aria-hidden="true"></i> Filters
+					</button>
+				</div>
+				<div class="insure-list--nav--action--box">
+					<button class="insure-list--nav--action--box__btn" (click)="triggerDropdown('sort')">{{currentSort.name}}</button>
+					<div class="insure-list--nav--action--box__dropdown" [ngClass]="{'active': sortIsOpen}">
+						<div *ngFor="let type of sortList">
+							<p [ngClass]="{'active': type.value === currentSort.value}" (click)="changeSort(type)">
+								{{type.name}}
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="clearBoth"></div>
+
+			<!-- start of filter block -->
+			<div class="insure-list--nav--filter" *ngIf="filterIsOpen">
+				<div class="insure-list--nav--filter--box insure-list--nav--filter--box__small">
+					<label class="insure-list--nav--filter--box__subtitle"
+					       for="bestSeller">Best Seller
+					</label>
+					<select id="bestSeller"
+					        name="bestSeller"
+					        #bestSeller="ngModel"
+					        class="insure-list--nav--filter--box__input cursor-pointer"
+					        [(ngModel)]="filter_obj.bestSeller">
+						<option *ngFor="let choice of filter_list.bestSeller" [ngValue]="choice">{{choice}}</option>
+					</select>
+				</div>
+				<div class="insure-list--nav--filter--box insure-list--nav--filter--box__small">
+					<label class="insure-list--nav--filter--box__subtitle"
+					       for="policyMax">Policy Max
+					</label>
+					<select id="policyMax"
+					        name="policyMax"
+					        #policyMax="ngModel"
+					        class="insure-list--nav--filter--box__input cursor-pointer"
+					        [(ngModel)]="filter_obj.policy_max">
+						<option *ngFor="let choice of filter_list.policy_max" [ngValue]="choice">{{choice}}</option>
+					</select>
+				</div>
+				<div class="insure-list--nav--filter--box insure-list--nav--filter--box__medium">
+					<label class="insure-list--nav--filter--box__subtitle"
+					       for="type">Type
+					</label>
+					<select id="type"
+					        name="type"
+					        #type="ngModel"
+					        class="insure-list--nav--filter--box__input cursor-pointer"
+					        [(ngModel)]="filter_obj.type">
+						<option *ngFor="let choice of filter_list.type" [ngValue]="choice">{{choice}}</option>
+					</select>
+				</div>
+				<div class="insure-list--nav--filter--box insure-list--nav--filter--box__medium">
+					<label class="insure-list--nav--filter--box__subtitle"
+					       for="section">Section
+					</label>
+					<select id="section"
+					        name="section"
+					        #section="ngModel"
+					        class="insure-list--nav--filter--box__input cursor-pointer"
+					        [(ngModel)]="filter_obj.section">
+						<option *ngFor="let choice of filter_list.section" [ngValue]="choice">{{choice}}</option>
+					</select>
+				</div>
+			</div>
+			<!-- end of filter block -->
+		</nav>
+
+		<div class="insure-list--content">
+			<div class="insure-list--content--compareBox">
+				<div>Selected Plans (Up to 4): <span *ngFor="let plan of currentSelectPlans">{{plan.name}}</span> </div>
+				<button class="insure-list--content--compareBox__btn" (click)="openCompareModal()">Compare</button>
+			</div>
+			<div class="insure-list--content--main" [ngClass]="{'insure-list--content__grid-view': gridIsOpen}">
+				<div class="insure-list--content--box" *ngFor="let list of quoteList | quotesPipe: filter_obj">
+					<div class="insure-list--content--box__details">
+						<div class="insure-list--content--box__details__firstRow">
+							<h2 class="insure-list--content--box__details__firstRow__name">{{list.name}}</h2>
+							<p class="insure-list--content--box__details__firstRow__price">${{list.price}}</p>
+						</div>
+						<p *ngIf="list.bestSellers" class="insure-list--content--box__details__bestSeller">Best Sellers</p>
+						<p>Type: {{list.type}}</p>
+						<p>Section: {{list.section}}</p>
+						<p class="insure-list--content--box__details__description">"{{list.description}}"</p>
+					</div>
+					<button class="insure-list--content--box__btn"
+					        (click)="selectPlan(list)"
+					        [ngClass]="{'remove': list.isDisabled}">
+						<span *ngIf="!list.isDisabled">Add to Compare List</span>
+						<span *ngIf="list.isDisabled">Remove from Compare List</span>
+					</button>
+				</div>
+			</div>
+		</div>
+
 	</main>
+	<!-- end of second page -->
 </div>
 
